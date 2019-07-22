@@ -1,0 +1,57 @@
+<div class="container">
+
+  <a style="cursor:pointer" class="list-group-item clearfix">
+    <div class="row">
+      <div class="col-lg-6">
+        <span class="pull-left">
+        
+      <img [src]="product.imagePath" class="img-responsive" style="max-height:300px;max-width:300px;"  alt="{{product.pname}}">
+        </span>
+      </div>
+      <div class="col-lg-6">
+        <div class="pull-right clearfix">
+          <h5 class="list-group-item-heading text-capitalize">
+            <strong>{{product.pname}} </strong>
+          </h5>
+          <p class="list-group-item-text">
+            <strong>Style:</strong>{{product.style}}</p>
+          <p class="list-group-item-text">
+            <strong>Colour:</strong>{{product.colour}}</p>
+          <p class="list-group-item-text" *ngIf="product.amount>50 else pro">
+            <strong>Amount:</strong> $.{{product.amount-product.amount*0.50}} &nbsp;<small><del class="text-secondary text-muted">$.{{product.amount}}</del></small>            &nbsp;
+            <span class="text-success">&nbsp;50% Off</span> You Save $.{{product.amount-(product.amount-product.amount*0.50)}}
+
+
+          </p>
+
+          <ng-template #pro>
+            <strong>Amount:</strong> $.{{product.amount-product.amount*0.25}} &nbsp;<small><del class="text-secondary text-muted">$.{{product.amount}}</del></small>            &nbsp;
+            <span class="text-success">&nbsp;25% Off</span> You Save $.{{product.amount-(product.amount-product.amount*0.25)}}
+          </ng-template> <br>
+          {{product.size|json}}
+          Size: <select value="s">
+            <option>{{product.small}}</option>
+            <option>{{product.large}}</option>
+            <option>{{product.medium}}</option>
+            <option>{{product.extrasmall}}</option>
+            <option>{{product.extralarge}}</option>
+                      </select><br>
+                      
+
+           <br> Quantity:<input type="number" [(ngModel)]="qty" placeholder="1">
+          
+        </div>
+      </div>
+  
+    </div>
+  <br>
+  
+      
+  <button class="btn btn-danger" (click)="addProductsToCart()">
+    Add To Cart <i class="fa fa-cart-plus"></i></button>&nbsp;
+  <button class="btn btn-warning">Buy Now</button>
+
+  
+  </a>
+  
+</div>

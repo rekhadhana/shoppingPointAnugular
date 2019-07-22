@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-sm-5 col-lg-12">
+    <div *ngIf="isLoading" style="text-align:center">
+      <app-loading-spinner></app-loading-spinner>
+
+    </div>
+   
+    <app-product-item *ngFor="let productELE of products;let i=index"
+    [product]="productELE" [index]=i>
+    <!-- <ng-container *ngIf="isloading">Loading....</ng-contaisner> -->
+    </app-product-item>
+
+    
+  </div>

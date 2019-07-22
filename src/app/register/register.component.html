@@ -1,0 +1,52 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" >
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="uname">User Name</label>
+            <input type="text" id="uname" class="form-control" ngModel name="uname" required>
+          </div>
+          <button type="button" class="btn btn-primary" type="button" (click)="suggestUserName()">Suggest a user name</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+          </div>
+          <span class="help-block" *ngIf="!email.valid && email.touched">please enter valid email</span>
+        </div>
+        <span *ngIf="!userData.valid && userData.touched">
+          please enter valid user data</span>
+        
+          <div class="form-group">
+            <label for="secrete">Secret Questions</label>
+               <select id="secrete" class="form-control" [ngModel]="defaultquestion" name="secrete">
+                 <option value="pet">YOur first pet?</option>
+                 <option value="teacher">your first teacher?</option>
+               </select>
+          </div>
+          <div class="form-group">
+            <textarea name="questionAnwser" class="form-control" [(ngModel)]="anwser" rows="3"></textarea>
+          </div>
+        <p>your anwser is {{anwser}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" name="gender" [ngModel]="'male'" [value]="gender" required>{{gender}}
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="submited">
+      <h1>your data</h1>
+      <p>user name:{{user.username}}</p>
+      <p>user email:{{user.email}}</p>
+      <p>user secrete question:{{user.secreteQues}}</p>
+      <p>user questionAnwser:{{user.anwser}}</p>
+      <p>user geder:{{user.gender}}</p>
+      
+    </div>
+  </div>
+</div>

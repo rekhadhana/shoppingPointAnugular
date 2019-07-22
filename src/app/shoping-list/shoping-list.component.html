@@ -1,0 +1,226 @@
+<h5> <span class="text-success">{{items}}Items</span></h5>
+
+<div class="row">
+  <div class="col"></div>
+
+  <div class="col-lg-2 pull-center">
+    Size
+  </div>
+  <div class="col-lg-2">
+    Qty
+  </div>
+  <div class="col-lg-2">
+    Price
+  </div>
+</div>
+<hr>
+
+
+
+
+
+
+
+<div class="row border" *ngFor="let product of products;let i=index">
+  <div class="col-lg-3">
+    <span class="pull-left">
+              
+            <img [src]="product.imagePath" class="img-responsive" style="max-height:300px;max-width:300px;"  alt="{{product.pname}}">
+      </span>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="pull-right clearfix">
+      <h5 class="list-group-item-heading text-capitalize">
+        <strong>{{product.pname}} </strong>
+        <!-- for unit testing purpose -->
+        <!-- <span>{{prod.name}}</span> -->
+      </h5>
+      <p class="list-group-item-text">
+        Style:{{product.style}}
+      </p>
+      <p class="list-group-item-text">
+        Color:{{product.colour}}
+      </p>
+
+      <div>
+        <span class="border pl-1 pr-1" style="cursor:pointer" (click)="onEdit(product.id)" data-toggle="modal" data-target="#editModal"> EDIT</span>
+        <span class="border pl-1 pr-1 "style="cursor:pointer" (click)="onEdit(product.id)"> 
+   ROMOVE </span>
+        <span class="border pl-1"> SAVE FOR LATER</span>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- <div class="col-lg-2" *ngIf="!editable">
+     {{product.small}} 
+  </div> -->
+  <div class="col-lg-2">
+      {{product.small}}
+   </div>
+ 
+  <div class="col-lg-2">
+    <span class="border">
+      {{product.qty}}
+     </span>
+  </div>
+
+  <div class="col-lg-2">
+    <p class="list-group-item-text" *ngIf="product.amount>50 else pro">
+      $.{{product.amount-product.amount*0.50}}
+      <small><del class="text-secondary text-muted">$.{{product.amount}}</del></small>
+    </p>
+    <ng-template #pro>
+      $.{{product.amount-product.amount*0.25}}
+      <small><del class="text-secondary text-muted">$.{{product.amount}}</del></small>
+    </ng-template>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-lg-3">
+
+    <p class="p-0 mb-0"><strong>
+          Need help
+      </strong>
+    </p>
+    <p class="p-0"><strong>   or have questions?
+      </strong></p>
+    <p class="p-0 mb-0">Call Customer Service at</p>
+    <p class="p-0">1-800-555-5555</p>
+    <p class="p-0 mb-0 text-primary">Chat with one
+
+    </p>
+    <p class="p-0 text-primary">of Our agent</p>
+    <p class="p-0 mb-0 text-primary">see return
+
+    </p>
+    <p class="p-0 text-primary">and exchange policy</p>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-4 ">
+        Enter Your Promotion Code or GiftCard
+
+      </div>
+      <div class="col-8 d-flex justify-content-end">
+        <input type="text" id="promo" class="form-control" name="promo">&nbsp;<button type="button">Applay</button>
+
+      </div>
+
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-4 ">SubTotal</div>
+      <div class="col-8 d-flex justify-content-end"> {{SubTotal}}</div>
+
+    </div>
+    <div class="row">
+
+
+      <div class="col-4" *ngIf="SubTotal<200"><strong><p class="p-0 mb-0 text-primary">Estimated Shipping*</p>
+      </strong>
+        <p> Your Are not Eligible For Free Shipping because your order bellow 200</p>
+
+      </div>
+
+      <div class="col-8 d-flex justify-content-end" *ngIf="SubTotal<200">
+        {{SubTotal*0.02}}
+      </div>
+
+      <div class="col-4 " *ngIf="SubTotal>200"><strong><p class="p-0 mb-0 text-primary">Estimated Shipping*</p>
+          </strong>
+        <p> Your Are Eligible For Free Shipping because your order over 200</p>
+
+      </div>
+
+      <div class="col-8 d-flex justify-content-end" *ngIf="SubTotal>200">
+        Free
+      </div>
+      <hr>
+
+    </div>
+
+    <div class="row">
+      <div class="col-4 "><strong><p class="p-0 mb-0 text-primary">Estimated Total*</p>
+      </strong>
+        <p>Tax will be applied during Checkout</p>
+
+      </div>
+      <div class="col-8 d-flex justify-content-end" *ngIf="items>=1">
+        {{SubTotal-SubTotal*0.05}}
+      </div>
+      <div class="col-8 d-flex justify-content-end" *ngIf="items>=4">
+        {{SubTotal-SubTotal*0.10}}
+      </div>
+      <div class="col-8 d-flex justify-content-end" *ngIf="items>=7">
+        {{SubTotal-SubTotal*0.15}}
+      </div>
+      <div class="col-8 d-flex justify-content-end" *ngIf="items>10">
+        {{SubTotal-SubTotal*0.25}}
+      </div>
+
+    </div>
+    <hr>
+    <div class="d-flex justify-content-end">
+      <span class="text-info">Continue Shopping</span> <button class="btn btn-primary">CHECKOUT</button>
+    </div>
+    <div class="d-flex justify-content-end">
+
+      <img src="assets/lock.jpg" alt="Lock"><span><small>Secure Checkout.Shopping is always safe & secure.</small>
+   </span> </div>
+
+  </div>
+</div>
+
+<!-- model -->
+<div class="modal" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Shopping Cart</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <hr>
+        <form ngForm="updateM" (ngSubmit)="saveupdated()">
+           
+        <div class="row">
+            <div class="col-lg-6">
+              <strong> <span>{{updateM.pname}}</span></strong><br>
+              <h5><small> $.</small>{{updateM.amount}}</h5><br>
+
+              <select [(ngModel)]="updateM.small" name="small" #small="ngModel">
+                          <option>{{updateM.small}}</option>
+                          <option>{{updateM.medium}}</option>
+                          <option>{{updateM.large}}</option>
+                          <option>{{updateM.extralarge}}</option>
+                          <option>{{updateM.extrasmall}}</option>
+                          
+              </select> &nbsp; 
+              
+  
+              <input type="number" style="max-width:70px;" placeholder="QTY:1"  id="qty" name="qty" [(ngModel)]="updateM.qty" #qty="ngModel">
+              <br>
+              <button class="btn btn-primary" style="cursor:pointer" type="button" (click)="onSaveUpdate(updateM.id)" data-dismiss="modal">EDIT</button>
+              <p class="p-0 text-primaty">See product Detail</p>
+            </div>
+            <div class="col-lg-6">
+              <img [src]="updateM.imagePath" alt="{{updateM.imagePath}}" style="max-height:250px;">
+            </div>
+          </div>
+        </form>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
